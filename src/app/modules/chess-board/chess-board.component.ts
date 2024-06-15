@@ -47,6 +47,20 @@ export class ChessBoardComponent {
     this.pieceSafeSquares = this.safeSquares.get(x + "," + y) || [];
   }
 
+  private placingPiece(newX: number, newY: number): void {
+    if(!this.selectedSquare.piece) return;
+    if(!this.isSquareSafeForSelectedPiece(newX, newY)) return;
+
+    const { x: prevX, y: prevY } = this.selectedSquare;
+    this.chessBoard.move(prevX, prevY, newX, newY);
+    this.chessBoardView = this.chessBoard.chessBoardView;
+  }
+
+  public move(x: number, y: number): void {
+    this.selectingPiece(x, y);
+    this.placingPiece(x, y);
+  }
+
   private isWrongPieceSelected(piece: FENChar): boolean {
     const isWhitePieceSelected: boolean = piece === piece.toUpperCase();
     return isWhitePieceSelected && this.playerColor === Color.Black || !isWhitePieceSelected && this.playerColor === Color.White;
