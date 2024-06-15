@@ -62,10 +62,10 @@ export class ChessBoardComponent {
     return this.checkState.isInCheck && this.checkState.x === x && this.checkState.y === y;
   }
 
-  // public isSquarePromotionSquare(x: number, y: number): boolean {
-  //   if(!this.promotionCoords) return false;
-  //   return this.promotionCoords.x === x && this.promotionCoords.y === y;
-  // }
+  public isSquarePromotionSquare(x: number, y: number): boolean {
+    if(!this.promotionCoords) return false;
+    return this.promotionCoords.x === x && this.promotionCoords.y === y;
+  }
 
   private unmarkingPreviouslySelectedAndSafeSquares(): void {
     this.selectedSquare = { piece: null };
