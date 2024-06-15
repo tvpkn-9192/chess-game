@@ -15,6 +15,9 @@ export class ChessBoard {
     private _safeSquares: SafeSquares;
     private _lastMove: LastMove | undefined;
     private _checkState : CheckState = { isInCheck: false };
+    private fiftyMoveRuleCounter: number = 0;
+    private _isGameOver: boolean = false;
+    private _gameOverMessage: string | undefined;
 
     constructor() {
         this.chessBoard = [
@@ -62,6 +65,14 @@ export class ChessBoard {
 
     public get checkState(): CheckState {
         return this._checkState;
+    }
+
+    public get isGameOver(): boolean {
+        return this._isGameOver;
+    }
+
+    public get gameOverMessage(): string | undefined {
+        return this._gameOverMessage;
     }
 
     public static isSquareDark(x: number, y: number): boolean {
@@ -291,6 +302,14 @@ export class ChessBoard {
             piece.hasMoved = true;
         }
 
+        const isPieceTaken: boolean = this.chessBoard[newX][newY] !== null;
+        if(piece instanceof Pawn || isPieceTaken) {
+            this.fiftyMoveRuleCounter = 0;
+        }
+        else {
+            this.fiftyMoveRuleCounter += 0.5;
+        }
+
         this.handlingSpecialMoves(piece, prevX, prevY, newX, newY);
         //update the board
         if(promotedPieceType) {
@@ -305,6 +324,7 @@ export class ChessBoard {
         this._playerColor = this._playerColor === Color.White ? Color.Black : Color.White;
         this.isInCheck(this._playerColor, true);
         this._safeSquares =this.findSafeSquare();
+        this._isGameOver = this.isGameFinished();
     }
 
     private handlingSpecialMoves(piece: Piece, prevX: number, prevY: number, newX: number, newY: number): void {
@@ -334,5 +354,21 @@ export class ChessBoard {
             return new Rook(this._playerColor);
 
         return new Queen(this._playerColor);
+    }
+
+    private isGameFinished(): boolean {
+        if(this._safeSquares.size) {
+            if(this._checkState.isInCheck) {
+                const prevPlayer: string = this._playerColor === Color.White ? "Black" : "White";
+                this._gameOverMessage = prevPlayer + " won by checkmate";
+            }
+            else this._gameOverMessage = "Stalemate";
+            return true;
+        }
+        if(this.fiftyMoveRuleCounter === 50) {
+            this._gameOverMessage = "Draw due to fifty move rule";
+            return true;
+        }
+        return false;
     }
 }
