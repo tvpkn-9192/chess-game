@@ -1,0 +1,83 @@
+SafeSquare pseudocode:
+
+FUNCTION findSafeSquares(): Map of player available squares
+
+new Map<string, Coords[]>();
+key = x + "," + y;
+
+
+Initally:
+    define empty map for player available squares
+Foreach square in chess board
+   if square doesn't have piece OR piece on square has different color than current player: CONTINUE
+
+   define list of coordinates for piece safe squares
+   Foreach direction of piece direcions:
+      declare newX and newY coordinates
+      if coordinates are out of range: CONTINUE
+
+      declare piece on new coordinates as new Piece
+      if newpiece is not null AND newPiece.color === piece.color: CONTINUE
+
+      if (position is SAFE after move) THEN update piece safe squares list
+      
+      Checking if there is possiblity for en passant and castling
+
+      If piece have safe squares append it to player map
+RETURN Map of player safe squares
+
+
+
+
+
+
+
+
+
+
+
+﻿
+
+How to determine if position is safe after move
+1) We need to simulate how position would look like after the move is played
+2) If player who just moved piece, creates position such that he is in check, position is then unsafe
+3) Restore position as it was before move is played
+4) Return safety of the simulate position
+
+
+
+
+
+
+
+
+
+
+
+﻿
+
+How To Detrmine If King Is In Check?
+
+To dertimne if one side is in check:
+
+Loop through each piece of opposite color
+    Loop through each of its attacking square
+        if one of the attacking square contains king with the opposite color of piece that is attacking 
+    THEN position is in check
+If no such a square exist there is no check
+
+
+
+
+
+
+
+
+﻿
+
+Conditions for En Passant:
+
+Previous player moved pawn two squares
+Our pawn and the opponent's pawn are on the same rank
+The pawns are adjacent to each other.
+Position must be safe after capture is completed
