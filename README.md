@@ -13,6 +13,11 @@ The chess application offers two exciting modes for players:
    - Players can test their skills against an AI opponent that adapts to their moves and provides a challenging experience.
    - Features like threefold repetition, pawn promotion, and en passant are also available in this mode.
 
+
+## Live Demo
+Check out the live version of Chess: [Chessgame](https://tvpkn-9192.github.io/chess_game/)
+
+
 ## Technologies Used
 
 This application leverages the following technologies:
@@ -32,10 +37,6 @@ This application leverages the following technologies:
    - Stockfish is an open-source chess engine known for its strength and accuracy.
    - The REST API allows your application to communicate with Stockfish, enabling computer mode.
    - Users can play against an AI opponent powered by Stockfish's calculations.
-
-
-## Live Demo
-Check out the live version of Chess: [Chessgame](https://tvpkn-9192.github.io/chess_game/)
 
 
 ## Features
