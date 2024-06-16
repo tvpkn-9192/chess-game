@@ -29,6 +29,8 @@
 
 .game-over-message {
     color: white;
+    padding-top: 65px;
+    padding-bottom: 10px;
 }
 
 .promotion-dialog {
@@ -37,6 +39,8 @@
     align-items: center;
     width: 300px;
     height: 100px;
+    padding-bottom: 45px;
+    padding-top: 125px;
 }
 
 .promotion-dialog img {
