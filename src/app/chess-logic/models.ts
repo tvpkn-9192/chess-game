@@ -79,5 +79,3 @@ export type GameHistory = {
     checkState: CheckState;
     board: (FENChar | null)[][];
 }[];
-
-export const columns = ["a", "b", "c", "d", "e", "f", "g", "h"] as const;
